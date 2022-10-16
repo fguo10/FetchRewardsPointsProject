@@ -26,7 +26,7 @@ class TransactionDetailsView(APIView):
                 'timestamp': tran.timestamp,
                 'is_credit': tran.is_credit
             })
-        return JsonResponse(results)
+        return JsonResponse(results, safe=False)
 
     def post(self, request):
         """
@@ -47,7 +47,6 @@ class TransactionDetailsView(APIView):
         record = statistics_points()
         print(record, payer)
         payer_points = record.get(payer, 0)
-
 
         if payer_points + points <= 0:
             return JsonResponse({"msg": "no payer's points to go negative."})
